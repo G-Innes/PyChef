@@ -11,6 +11,3 @@ def inspire_me():
         save_choice = input("Do you want to save this recipe? (y/n): ")
         if save_choice.lower() == 'y':
             save_recipe(recipe)
-
-
-

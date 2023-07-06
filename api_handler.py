@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 from rich.table import Table
 from rich.console import Console
+from rich.panel import Panel
 from ingredient_manager import load_ingredients
 from print_handler import print_recipe_steps, print_ingredient_stock
 
@@ -55,11 +56,12 @@ def get_recipe_based_on_ingredients(ingredients):
         console = Console()
 
         print()
-        console.print(f"Recipe ID: {recipe['id']}", style="green")
-        console.print(f"Title: {recipe['title']}", style="bold bright_yellow underline")
+        console.print("---  :snake: PyChef :snake:  ---", style="bold blue on bright_yellow", justify="center")
+        print()
+        console.print(Panel(f"[bold bright_yellow underline]{recipe['title']}[/bold bright_yellow underline]", border_style="blue"), justify="center")
         print()
 
-        used_table = Table(show_header=True, header_style="bold magenta")
+        used_table = Table(show_header=True, header_style="bold bright_yellow", border_style="blue")
         used_table.add_column("Your Ingredients", style="cyan", width=20)
         used_table.add_column("Quantity", style="cyan", width=10)
         for ingredient in recipe['usedIngredients']:
@@ -67,7 +69,7 @@ def get_recipe_based_on_ingredients(ingredients):
 
         console.print(used_table)
 
-        missing_table = Table(show_header=True, header_style="bold magenta")
+        missing_table = Table(show_header=True, header_style="bold bright_yellow", border_style="blue")
         missing_table.add_column("Missing Ingredients", style="red", width=20)
         missing_table.add_column("Quantity", style="red", width=10)
         for ingredient in recipe['missedIngredients']:

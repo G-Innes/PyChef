@@ -14,7 +14,7 @@ def load_ingredients(file_path):
             for row in reader:
                 ingredients[row[0]] = float(row[1])
     except FileNotFoundError:
-        print("The file does not exist.")
+        print("No ingredients file found (creating)")
         return ingredients
     except Exception as e:
         print(f"An error occurred: {str(e)}")
@@ -76,7 +76,3 @@ def get_ingredient_list(file_path):
     ingredients = load_ingredients(file_path)
     ingredient_list = "\n".join(f"- {name} : {quantity}" for name, quantity in ingredients.items())
     return ingredient_list
-
-
-
-

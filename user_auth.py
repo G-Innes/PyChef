@@ -46,7 +46,7 @@ def get_valid_password():
     '''
     console = Console()
     while True:
-        password = getpass.getpass("Enter Password: ")
+        password = getpass.getpass("Enter Strong Password: ")
         confirm_password = getpass.getpass("Confirm Password: ")
         if password == confirm_password:
             if validate_password(password):

@@ -41,13 +41,13 @@ def authenticate():
     '''
     console = Console()
     while True:
-        console.print("\n---  Login Portal  ---", style="underline blue")
+        console.print("---  Login Portal  ---", style="bold blue on bright_yellow", justify="center")
         print()
-        console.print("1. Signup", style="bright_yellow")
-        console.print("2. Login", style="bright_yellow")
-        console.print("3. Quick Access", style="bright_yellow")
+        console.print("1. Login", style="bright_yellow", justify="center")
+        console.print("2. Signup", style="bright_yellow", justify="center")
+        console.print("3. Quick Access", style="grey23", justify="center")
         print()
-        console.print("'q' Exit", style="red")
+        console.print("'q' Exit", style="bright_yellow", justify="center")
         print()
 
         prompt = "Enter your choice: "
@@ -56,10 +56,10 @@ def authenticate():
         choice = get_valid_input(prompt, valid_choices, error_message)
         
         if choice == "1":
-            user_auth.signup()
-        elif choice == "2":
             user_auth.login()
             break
+        elif choice == "2":
+            user_auth.signup()
         elif choice == "3":
             break
         elif choice == "q":
@@ -75,15 +75,16 @@ def main_menu(file_path, ingredients):
     console = Console()
     ingredients = ingredient_manager.load_ingredients(file_path)
     while True:
-        console.print("\n--- Recipe Generator ---", style="underline blue")
+        console.print("---  :snake: PyChef :snake:  ---", style="bold blue on bright_yellow", justify="center")
         print()
-        console.print("1. Update Ingredients", style="bright_yellow")
-        console.print("2. Generate Recipe", style="bright_yellow")
-        console.print("3. View Saved Recipes", style="bright_yellow")
-        console.print("4. Inspire Me", style="bright_yellow")
+        console.print("1. Update Ingredients", style="bright_yellow", justify="center")
+        console.print("2. Generate Recipe From Ingredients", style="bright_yellow", justify="center")
+        console.print("3. Inspire Me", style="bright_yellow", justify="center")
+        console.print("4. View Saved Recipes", style="bright_yellow", justify="center")
         print()
-        console.print("'q' Exit", style="red")
+        console.print("'q' Exit", style="bright_yellow", justify="center")
         print()
+
 
         prompt = "Enter your choice (1-5 or 'q'): "
         valid_choices = ["1", "2", "3", "4", "5", "q"]
@@ -127,10 +128,10 @@ def main_menu(file_path, ingredients):
                     save_recipe(recipe)
 
         elif choice == "3":
-            view_saved_recipes()
+            inspire_me()
 
         elif choice == "4":
-            inspire_me()
+            view_saved_recipes()
 
         elif choice == "q":
             sys.exit(console.print("Program Terminated", style="bold red"))
