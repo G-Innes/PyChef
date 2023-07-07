@@ -1,5 +1,6 @@
 import os
 
+
 def save_recipe(recipe):
     """
     Save a recipe to the favorites file.

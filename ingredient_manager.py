@@ -53,7 +53,8 @@ def remove_ingredient(file_path, ingredient_name, quantity):
         raise ValueError(f"Ingredient '{ingredient_name}' not found in the list.")
 
     save_ingredients(file_path, ingredients)
-    
+
+
 def save_ingredients(file_path, ingredients):
     """
     Save a list of ingredients to a CSV file.
@@ -61,7 +62,7 @@ def save_ingredients(file_path, ingredients):
     ingredient name, quantity.
     """
     try:
-        with open(file_path, 'w', newline='') as file:
+        with open(file_path, "w", newline="") as file:
             writer = csv.writer(file)
             for ingredient, quantity in ingredients.items():
                 writer.writerow([ingredient, quantity])
@@ -74,5 +75,7 @@ def get_ingredient_list(file_path):
     Return a formatted string representing the list of ingredients.
     """
     ingredients = load_ingredients(file_path)
-    ingredient_list = "\n".join(f"- {name} : {quantity}" for name, quantity in ingredients.items())
+    ingredient_list = "\n".join(
+        f"- {name} : {quantity}" for name, quantity in ingredients.items()
+    )
     return ingredient_list
