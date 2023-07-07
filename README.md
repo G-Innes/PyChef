@@ -10,8 +10,7 @@ PyChef is a comprehensive recipe assistant designed to inspire your cooking adve
 4. [Running the Application](#running-the-application)
 5. [Testing](#testing)
 6. [Contribution](#contribution)
-7. [License](#license)
-8. [Future Scope](#future-scope)
+7. [Future Scope](#future-scope)
 
 <a name="features"></a>
 ## Features
