@@ -8,11 +8,11 @@ import sys
 
 def validate_username(username):
     """
-    Validate username format
+    Validate username format & regex matching
     """
     if len(username) < 3:
         return False
-    pattern = r"^[A-Za-z0-9]+$"
+    pattern = r"^[A-Za-z0-9]+$" # Sets regex pattern for username (upper/lowercase & numbers)
     return re.match(pattern, username) is not None
 
 
@@ -23,8 +23,9 @@ def validate_password(password):
     """
     if ":" in password:
         return False
-    pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$"
-    return re.match(pattern, password)
+    # Ensures password includes upper & lowercase, a digit and a special char
+    pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$" 
+    return re.match(pattern, password) 
 
 
 def get_valid_username():
@@ -47,8 +48,8 @@ def get_valid_password():
     console = Console()
     while True:
         password = getpass.getpass("Enter Strong Password: ")
-        confirm_password = getpass.getpass("Confirm Password: ")
-        if password == confirm_password:
+        confirm_password = getpass.getpass("Confirm Password: ") # Password masking to hide entry
+        if password == confirm_password: # compares password & confirmation
             if validate_password(password):
                 return password
             else:
@@ -76,7 +77,7 @@ def login():
         stored_credentials = read_credentials_file()
         stored_password = stored_credentials.get(username)
         entered_password = encrypt_password(password)  # Hash the entered password
-        if stored_password and entered_password == stored_password:
+        if stored_password and entered_password == stored_password: # Compare hashed paswords
             console.print("Login Successful", style="bold green")
             break
         else:
@@ -92,7 +93,7 @@ def save_credentials(username, password):
     This function saves the credentials to the 'credentials.txt' file.
     """
     console = Console()
-    encrypted_password = encrypt_password(password)
+    encrypted_password = encrypt_password(password) # Calls encrypt function with password
     if is_username_taken(username):
         console.print(
             "Username already exists. Please choose a different username.",
@@ -120,6 +121,7 @@ def save_credentials(username, password):
 
 
 def is_username_taken(username):
+    ''' Checks if username already exists in file'''
     credentials = read_credentials_file()
     return username in credentials
 

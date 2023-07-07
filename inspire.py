@@ -4,8 +4,12 @@ from save_handler import save_recipe
 
 
 def inspire_me():
+    '''
+    Prompt user & pass cuisine to API function
+    '''
     cuisine = input("Enter the cuisine type: ")
     recipe = get_random_recipe_by_cuisine(cuisine)
+    # If recipe is found, give option to save
     if recipe:
         print_recipe(recipe)
         save_choice = input("Do you want to save this recipe? (y/n): ")

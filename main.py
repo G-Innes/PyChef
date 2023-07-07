@@ -34,9 +34,8 @@ def get_valid_input(prompt, valid_choices, error_message):
 
 def authenticate():
     """
-    This function handles user authentication. It displays a login portal
-    and allows the user to sign up, login, or exit the program. The function
-    doesn't take any arguments and doesn't return anything. It uses the
+    This function displays the login portal
+    and allows the user to sign up, login, or exit the program. It uses the
     signup and login functions from the user_auth module.
     """
     console = Console()
@@ -53,12 +52,12 @@ def authenticate():
         print()
         console.print("'q' Exit", style="bright_yellow", justify="center")
         print()
-
+        # Set params for helper function & call
         prompt = "Enter your choice: "
         valid_choices = ["1", "2", "3", "q"]
         error_message = "Invalid choice! Please enter a number between 1 and 4."
         choice = get_valid_input(prompt, valid_choices, error_message)
-
+        # Break to main menu on succsesful login
         if choice == "1":
             user_auth.login()
             break
@@ -72,12 +71,12 @@ def authenticate():
 
 def main_menu(file_path, ingredients):
     """
-    This function displays the main menu and handles the user's choice. It
+    Displays the main menu and handles the user's choice. It
     allows the user to update ingredients, generate a recipe, view saved
     recipes, add preferences, or get inspired by a random recipe.
     """
     console = Console()
-    ingredients = ingredient_manager.load_ingredients(file_path)
+    ingredients = ingredient_manager.load_ingredients(file_path) 
     while True:
         console.print(
             "---  :snake: PyChef :snake:  ---",
@@ -113,7 +112,7 @@ def main_menu(file_path, ingredients):
             update_choice = get_valid_input(
                 update_prompt, update_valid_choices, update_error_message
             )
-
+            # get ingredient, quantity & pass to function with the file path for ingredients.
             if update_choice == "1":
                 ingredient = input("Enter the ingredient to add: ")
                 try:
@@ -126,7 +125,7 @@ def main_menu(file_path, ingredients):
                 while True:
                     name = input("Enter the ingredient to remove: ")
                     quantity = float(input("Enter the quantity to remove: "))
-
+                    # Check if ingredient exists & greater than 0 before function call with args.
                     if name.strip() and float(quantity) and int(quantity) > 0:
                         ingredient_manager.remove_ingredient(file_path, name, quantity)
                         break
@@ -135,15 +134,15 @@ def main_menu(file_path, ingredients):
                             "Invalid name or quantity. Please try again.",
                             style="bold red",
                         )
-
+        # load ingredients and pass to api_handler function.
         elif choice == "2":
             ingredients = ingredient_manager.load_ingredients(file_path)
             recipe = run(ingredients)
-            if recipe is not None:
+            if recipe is not None:  # If there is recipe prompts to save & calls save function.
                 prompt = "Do you want to save this recipe? (y/n): "
                 valid_choices = ["y", "n"]
                 error_message = (
-                    "Invalid choice! Please enter 'y' for yes or 'n' for no."
+                    "Invalid choice! Please enter 'y' f or yes or 'n' for no."
                 )
                 save_choice = get_valid_input(prompt, valid_choices, error_message)
                 if save_choice == "y":

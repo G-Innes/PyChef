@@ -45,13 +45,13 @@ def get_recipe_based_on_ingredients(ingredients):
     """
     # Set up the API endpoint URL
     url = "https://api.spoonacular.com/recipes/findByIngredients"
-
+    # Set parameters for API call
     params = get_params()
     params["number"] = 20
     params["ingredients"] = ingredients
-
+    # Calls request function with constructed url
     data = send_request(url, params)
-
+    # Checks for valid data & selects random recipe
     if data and isinstance(data, list) and len(data) > 0:
         sorted_recipes = sorted(
             data, key=lambda r: len(r["usedIngredients"]), reverse=True
@@ -83,7 +83,7 @@ def get_recipe_based_on_ingredients(ingredients):
         used_table.add_column("Quantity", style="cyan", width=10)
         for ingredient in recipe["usedIngredients"]:
             used_table.add_row(ingredient["name"], str(ingredient["amount"]))
-
+        # Prints table of user ingrediets that are used in this recipe
         console.print(used_table)
 
         missing_table = Table(
@@ -93,13 +93,13 @@ def get_recipe_based_on_ingredients(ingredients):
         missing_table.add_column("Quantity", style="red", width=10)
         for ingredient in recipe["missedIngredients"]:
             missing_table.add_row(ingredient["name"], str(ingredient["amount"]))
-
+        # Prints table of ingredients in recipe but not in user ingredients
         console.print(missing_table)
-
+        # call function with recipe ID necessary for API call
         recipe_steps = get_recipe_steps(recipe["id"])
         if recipe_steps:
             recipe["steps"] = recipe_steps
-
+        
         cleaned_recipe = {
             "title": recipe["title"],
             "ingredients": [
@@ -120,9 +120,9 @@ def get_recipe_steps(recipe_id):
     Fetches and returns the cooking steps for the recipe with the given ID.
     """
     url = f"https://api.spoonacular.com/recipes/{recipe_id}/analyzedInstructions"
-
+    # Call request function with new url for getting recipe steps
     data = send_request(url, get_params())
-
+    # List comp for constructing API data from request (steps)
     if data and len(data) > 0:
         steps = [f"Step {i['number']}: {i['step']}" for i in data[0]["steps"]]
         return steps
@@ -161,17 +161,20 @@ def get_random_recipe_by_cuisine(cuisine_type):
 
 
 def run(ingredients):
+    '''
+    
+    '''
     file_path = "ingredients.csv"
     ingredients = load_ingredients(file_path)
 
     if not ingredients:
         print("No ingredients found in the file.")
         return
-
+    # list comp for converting ingredients from dict to use in request
     ingredient_names = ",".join([f"{k},{v}" for k, v in ingredients.items()])
     print_ingredient_stock(ingredients)
     recipe = get_recipe_based_on_ingredients(ingredient_names)
-
+    # print steps for recipe if recipe found
     if recipe:
         print_recipe_steps(recipe["steps"])
     else:

@@ -3,7 +3,7 @@ import os
 
 def save_recipe(recipe):
     """
-    Save a recipe to the favorites file.
+    Save a recipe to the favorites file. appends title, ingredients & steps to favourites file
     """
     file_path = os.path.join(os.path.dirname(__file__), "favorites.txt")
     with open(file_path, "a") as f:

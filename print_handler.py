@@ -2,12 +2,14 @@ from rich.table import Table
 from rich.console import Console
 from rich.panel import Panel
 from rich.markdown import Markdown
-from rich import print
 
 
 def print_ingredient_stock(ingredients):
+    '''
+    Function for printing the users current ingredient stock for reference in recipe generator
+    '''
     console = Console()
-
+    # Creates table for user ingredients
     table = Table(
         show_header=True, header_style="bold bright_yellow", border_style="blue"
     )
@@ -22,6 +24,9 @@ def print_ingredient_stock(ingredients):
 
 
 def print_recipe_steps(steps):
+    '''
+    Function for printing the recipe steps
+    '''
     console = Console()
     for step in steps:
         markdown_step = Markdown(f"{step}")
@@ -30,6 +35,9 @@ def print_recipe_steps(steps):
 
 
 def print_recipe(recipe):
+    '''
+    Function for printing the randomely generated recipe from inspire option
+    '''
     console = Console()
 
     recipe_md = f"## {recipe['title']}\n\n"
