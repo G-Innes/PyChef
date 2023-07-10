@@ -6,7 +6,10 @@ from rich.markdown import Markdown
 
 def print_ingredient_stock(ingredients):
     '''
-    Function for printing the users current ingredient stock for reference in recipe generator
+    Function for printing the users current ingredient stock in a table format
+    Args:
+        ingredients: users current ingredients
+    Returns: None
     '''
     console = Console()
     # Creates table for user ingredients
@@ -25,7 +28,10 @@ def print_ingredient_stock(ingredients):
 
 def print_recipe_steps(steps):
     '''
-    Function for printing the recipe steps
+    Function for printing the recipe steps with styling
+    Args:
+        steps: recipe steps from api
+        Returns: None
     '''
     console = Console()
     for step in steps:
@@ -36,7 +42,10 @@ def print_recipe_steps(steps):
 
 def print_recipe(recipe):
     '''
-    Function for printing the randomely generated recipe from inspire option
+    Formats and prints the generated recipe from inspire option with styling
+    Args:
+        recipe: contents of recipe generated from api call (get_recipe_by_cuisine)
+    Returns: None
     '''
     console = Console()
 

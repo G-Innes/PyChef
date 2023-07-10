@@ -4,6 +4,9 @@ import os
 def save_recipe(recipe):
     """
     Save a recipe to the favorites file. appends title, ingredients & steps to favourites file
+    Args:
+        recipe: generated recipe with title, ingredients and steps
+    Returns: None
     """
     file_path = os.path.join(os.path.dirname(__file__), "favorites.txt")
     with open(file_path, "a") as f:
@@ -20,7 +23,9 @@ def save_recipe(recipe):
 
 def view_saved_recipes():
     """
-    View saved recipes.
+    Reads the contents of favourites.txt to the user.
+    Args: None
+    Returns: None
     """
     file_path = os.path.join(os.path.dirname(__file__), "favorites.txt")
     with open(file_path, "r") as f:

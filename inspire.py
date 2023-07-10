@@ -6,6 +6,8 @@ from save_handler import save_recipe
 def inspire_me():
     '''
     Prompt user & pass cuisine to API function
+    Args: None
+    Returns: None
     '''
     cuisine = input("Enter the cuisine type: ")
     recipe = get_random_recipe_by_cuisine(cuisine)

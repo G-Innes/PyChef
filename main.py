@@ -5,11 +5,13 @@ import user_auth
 from inspire import inspire_me
 from api_handler import run
 from save_handler import save_recipe, view_saved_recipes
+from print_handler import print_ingredient_stock
 
 
 def main():
     """
     sets the file path for ingredients, calls authenticate first and then starts loop for main menu
+    
     """
     file_path = "ingredients.csv"
     authenticate()
@@ -21,6 +23,13 @@ def main():
 def get_valid_input(prompt, valid_choices, error_message):
     """
     Helper function that prompts the user for input and keeps asking until a valid choice is made.
+    Args:
+        prompt: user input message
+        valid_choices: list of options for user
+        error_message: invalid choice message
+    Returns:
+            user choice from list of options
+    Raises:
     """
     console = Console()
     while True:
@@ -34,9 +43,11 @@ def get_valid_input(prompt, valid_choices, error_message):
 
 def authenticate():
     """
-    This function displays the login portal
-    and allows the user to sign up, login, or exit the program. It uses the
-    signup and login functions from the user_auth module.
+    This function displays the login portal and allows the user to sign up,
+    login, or exit the program. Its calls the validate input function then
+    the signup and login functions from the user_auth module.
+    Args: None
+    Returns: None
     """
     console = Console()
     while True:
@@ -55,7 +66,7 @@ def authenticate():
         # Set params for helper function & call
         prompt = "Enter your choice: "
         valid_choices = ["1", "2", "3", "q"]
-        error_message = "Invalid choice! Please enter a number between 1 and 4."
+        error_message = "Invalid choice! Please enter a number between 1 and 5."
         choice = get_valid_input(prompt, valid_choices, error_message)
         # Break to main menu on succsesful login
         if choice == "1":
@@ -71,9 +82,13 @@ def authenticate():
 
 def main_menu(file_path, ingredients):
     """
-    Displays the main menu and handles the user's choice. It
-    allows the user to update ingredients, generate a recipe, view saved
-    recipes, add preferences, or get inspired by a random recipe.
+    Displays the main menu and handles the user's choice with the helper function.
+    It allows the user to update ingredients, generate a recipe, view saved
+    recipes, add preferences & get inspired by a random recipe.
+    Args:
+        file_path: the file path for ingredients.txt
+        ingredients: content from ingredients.txtr
+    Returns: None
     """
     console = Console()
     ingredients = ingredient_manager.load_ingredients(file_path) 
@@ -92,6 +107,7 @@ def main_menu(file_path, ingredients):
         )
         console.print("3. Inspire Me", style="bright_yellow", justify="center")
         console.print("4. View Saved Recipes", style="bright_yellow", justify="center")
+        console.print("5. Show Current Ingredient Stock", style="bright_yellow", justify="center")
         print()
         console.print("'q' Exit", style="bright_yellow", justify="center")
         print()
@@ -112,7 +128,7 @@ def main_menu(file_path, ingredients):
             update_choice = get_valid_input(
                 update_prompt, update_valid_choices, update_error_message
             )
-            # get ingredient, quantity & pass to function with the file path for ingredients.
+            # get ingredient, quantity & pass to function with the file path for ingredients.txt.
             if update_choice == "1":
                 ingredient = input("Enter the ingredient to add: ")
                 try:
@@ -153,6 +169,9 @@ def main_menu(file_path, ingredients):
 
         elif choice == "4":
             view_saved_recipes()
+
+        elif choice == "5":
+            print_ingredient_stock(ingredients)
 
         elif choice == "q":
             sys.exit(console.print("Program Terminated", style="bold red"))

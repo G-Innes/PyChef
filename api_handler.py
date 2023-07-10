@@ -12,6 +12,9 @@ from print_handler import print_recipe_steps, print_ingredient_stock
 def get_params():
     """
     Returns the required parameters for the API requests.
+    Args: None
+    Returns:
+        apiKey from .env file
     """
     load_dotenv()
     return {
@@ -23,6 +26,14 @@ def send_request(url, params):
     """
     Sends a GET request to the specified URL with the given parameters.
     Returns the JSON response if successful.
+    Args:
+        url: url specific to api call functions
+        params: specified parameters for request
+    Returns:
+        data: JSON response data (dict)
+    Raises:
+        requests.exceptions.RequestException: for any request errors
+        Exception: for any other exceptions
     """
     try:
         response = requests.get(url, params=params)
@@ -42,6 +53,11 @@ def get_recipe_based_on_ingredients(ingredients):
     """
     Fetches recipes based on the given ingredients.
     Prints the recipe with the most matching ingredients and returns its ID.
+    Args:  
+        ingredients: user ingredients 
+    Returns:
+        cleaned_recipe: dictionary with relevant formatted recipe details
+        None: if no recipes are found
     """
     # Set up the API endpoint URL
     url = "https://api.spoonacular.com/recipes/findByIngredients"
@@ -51,8 +67,9 @@ def get_recipe_based_on_ingredients(ingredients):
     params["ingredients"] = ingredients
     # Calls request function with constructed url
     data = send_request(url, params)
-    # Checks for valid data & selects random recipe
+    # Checks that the API returned data,the data is a list & the list is not empty.
     if data and isinstance(data, list) and len(data) > 0:
+        # Sorts recipes in descending order based on no. of used ingredients# Sorts recipes in descending order based on no. of used ingredients
         sorted_recipes = sorted(
             data, key=lambda r: len(r["usedIngredients"]), reverse=True
         )
@@ -118,6 +135,11 @@ def get_recipe_based_on_ingredients(ingredients):
 def get_recipe_steps(recipe_id):
     """
     Fetches and returns the cooking steps for the recipe with the given ID.
+    Args:
+        recipe_id: ID necessary for requesting recipe instructions
+    Returns:
+        steps: recipe steps from recipe ID (list)
+        None: if no steps found from request
     """
     url = f"https://api.spoonacular.com/recipes/{recipe_id}/analyzedInstructions"
     # Call request function with new url for getting recipe steps

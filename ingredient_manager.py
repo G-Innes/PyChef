@@ -6,6 +6,13 @@ def load_ingredients(file_path):
     Load ingredients from a CSV file.
     Each row in the CSV file should represent an ingredient with the
     format: ingredient name, quantity.
+    Args:
+        file_path: file path for ingredients.txt
+    Returns:
+        ingredients: dictionary with item(Key) and quantity(Value) if no exceptions
+    Raises:
+        FileNotFoundError: if no ingredients found returns empty dict
+        Exception: for any other error in reading file (also returns empty dict)
     """
     ingredients = {}
     try:
@@ -27,6 +34,11 @@ def add_ingredient(file_path, name, quantity):
     Add a quantity of an ingredient to the list.
     If the ingredient is already present, the quantity is updated.
     The updated list of ingredients is saved to the file.
+    Args:
+        file_path: ingredients.txt
+        name: ingredient name
+        quantity: quantity of item (float)
+    Returns: None
     """
     ingredients = load_ingredients(file_path) 
     # Increments quantity if ingredient exists, adds if not
@@ -45,6 +57,13 @@ def remove_ingredient(file_path, ingredient_name, quantity):
     If the remaining quantity of the ingredient is 0 or less,
     the ingredient is removed from the list.
     The updated list of ingredients is saved to the file.
+    Args:
+        file_path: ingredients.txt
+        ingredient_name: user input of item to remove
+        quantity: user input of quantity to remove
+    Returns: None
+    Raises:
+        ValueError: if entered ingredient name is not in ingredients.txt
     """
     ingredients = load_ingredients(file_path)
     # decrements quantity if ingredient found
@@ -61,9 +80,15 @@ def remove_ingredient(file_path, ingredient_name, quantity):
 
 def save_ingredients(file_path, ingredients):
     """
-    Save a list of ingredients to a CSV file.
+    Writes ingredients dictionary to a CSV file.
     Each row in the CSV file represents an ingredient with the format:
-    ingredient name, quantity.
+    ingredient name (key), quantity(value).
+    Args:
+        file_path: ingredients.txt
+        ingredients: dictionary of items and quantities
+    Returns: None
+    Raises:
+        FileNotFoundError: print message to user with expected filename
     """
     try:
         with open(file_path, "w", newline="") as file:
